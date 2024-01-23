@@ -31,7 +31,6 @@ const login = async (req, res) => {
  @desc регистрация
  @access Public
 */
-
 const register = async (req, res) => {
     const {email, password, name} = req.body;
 
