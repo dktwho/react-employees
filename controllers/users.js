@@ -1,6 +1,6 @@
 const {prisma} =require('../prisma/prisma-client')
 const bcrypt = require('bcrypt');
-const jwt = reuqire('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
     const {email, password} = req.body
@@ -26,8 +26,26 @@ const login = async (req, res) => {
     }
 }
 
+/**
+ @route POST /api/user/register
+ @desc регистрация
+ @access Public
+*/
+
 const register = async (req, res) => {
-    res.send('register')
+    const {email, password, name} = req.body;
+    if(!email && !password && !name) {
+        return res.send(400).json({message: 'Пожалуйста, заполните обязательные поля'})
+    }
+
+    const registeredUser = await prisma.user.findFirst({
+        where: {
+            email
+        }
+    })
+    if(registeredUser) {
+        return res.status(400).json({message: 'Пользователь с таким email уже существует'})
+    }
 }
 
 const current = async (req, res) => {
