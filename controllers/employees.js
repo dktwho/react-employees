@@ -96,7 +96,7 @@ const getEmployee = async (req, res) => {
                 id
             }
         })
-        res.status(204).json(employee)
+        res.status(200).json(employee)
     } catch {
         res.status(500).json({message: 'не удалось получить сотрудника'})
     }
