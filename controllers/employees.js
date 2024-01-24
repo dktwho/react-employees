@@ -33,7 +33,6 @@ const add = async (req, res) => {
                 ...data, userId: req.user.id
             }
         })
-
         return res.status(201).json(employee)
     } catch (err) {
         console.log(err)
