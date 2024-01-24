@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const {auth} = require('../middlewares/auth')
-const {log} = require("debug");
-const {all} = require("../controllers/employees");
+const {all, add} = require("../controllers/employees");
 
 // api/employees
 router.get('/', auth, all)
@@ -11,7 +10,7 @@ router.get('/', auth, all)
 router.get('/:id', auth, () => console.log('get single employee to id'))
 
 // api/employees/add
-router.post('/add', auth, () => console.log('add employee'))
+router.post('/add', add)
 
 // api/employees/remove/:id
 router.post('/remove/:id', auth, () => console.log('remove employee'))
