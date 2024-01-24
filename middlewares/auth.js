@@ -10,7 +10,7 @@ const auth = async (req, res, next) => {
 
         let user = await prisma.user.findUnique({
             where: {
-                id :decoded.id
+                id:decoded.id
             }
         });
         req.user = user;

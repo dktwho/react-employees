@@ -20,25 +20,24 @@ const all = async (req, res) => {
  @desc добавление сотрудника
  @access Private
  */
-const add = async (req,res) => {
+const add = async (req, res) => {
     try {
         const data = req.body;
-        if(!data.firstName || !data.lastName || !data.address || !data.age) {
-            return res.status(400).json({message: 'Все поля обязательные'})
+
+        if (!data.firstName || !data.lastName || !data.address || !data.age) {
+            return res.status(400).json({message: 'Все поля обязательные', res})
         }
 
-        const employee = await prisma.user.update({
-            where: {
-                id: req.user.id
-            },
+        const employee = await prisma.employee.create({
             data: {
-                createdEmployee: {
-                    create: data
-                }
+                ...data, userId: req.user.id
             }
         })
-        return  res.status(201).json(employee)
-    } catch {
+
+
+        return res.status(201).json(employee)
+    } catch (err) {
+        console.log(err)
         res.status(500).json({message: 'Что-то пошло не так'})
     }
 }

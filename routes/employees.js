@@ -10,7 +10,7 @@ router.get('/', auth, all)
 router.get('/:id', auth, () => console.log('get single employee to id'))
 
 // api/employees/add
-router.post('/add', add)
+router.post('/add', auth, add)
 
 // api/employees/remove/:id
 router.post('/remove/:id', auth, () => console.log('remove employee'))
