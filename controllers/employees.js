@@ -47,7 +47,7 @@ const add = async (req, res) => {
  @access Private
  */
 const remove = async (req, res) => {
-    const { id } = req.body
+    const {id} = req.body
     try {
         await prisma.employee.delete({
             where: {
@@ -59,8 +59,31 @@ const remove = async (req, res) => {
         res.status(500).json({message: 'не удалось удалить сотрудника'})
     }
 }
+
+/**
+ @route PUT /api/employees/edit/:id
+ @desc редактирование сотрудника
+ @access Private
+ */
+const edit = async (req, res) => {
+    const data = req.body
+    const id = data.id
+
+    try {
+        await prisma.employee.update({
+            where: {
+                id
+            },
+            data
+        })
+        res.status(204).json({message: 'ОК, сотрудник изменен'})
+    } catch {
+        res.status(500).json({message: 'не удалось редактировать сотрудника'})
+    }
+}
 module.exports = {
     all,
     add,
-    remove
+    remove,
+    edit
 }
