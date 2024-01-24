@@ -82,7 +82,6 @@ const edit = async (req, res) => {
     }
 }
 
-
 /**
  @route GET /api/employees/:id
  @desc получение сотрудника по id

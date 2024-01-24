@@ -16,6 +16,6 @@ router.post('/add', auth, add)
 router.post('/remove/:id', auth, remove)
 
 // api/employees/edit/:id
-router.put('/put/:id', auth, edit)
+router.put('/edit/:id', auth, edit)
 
 module.exports = router
