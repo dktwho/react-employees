@@ -1,10 +1,11 @@
 const express = require('express')
-const router = require('router')
+const router = express.Router();
 const {auth} = require('../middlewares/auth')
 const {log} = require("debug");
+const {all} = require("../controllers/employees");
 
 // api/employees
-router.get('/', auth, () => console.log('get all employees'))
+router.get('/', auth, all)
 
 // api/employees/:id
 router.get('/:id', auth, () => console.log('get single employee to id'))
