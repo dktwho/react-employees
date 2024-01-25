@@ -11,14 +11,14 @@ export const PasswordInput = ({name, placeholder, dependencies}: Props) => {
         <Form.Item name={name} dependencies={dependencies} hasFeedback rules={[{
             required: true,
             message: 'Обязательное поле'
-        }, ({getFieldsValue}) => ({
+        }, ({getFieldValue}) => ({
             validator(_, value) {
                 if (!value) {
                     return Promise.resolve()
                 }
 
                 if (name === 'confirmPassword') {
-                    if (!value || getFieldsValue(("password")) === value) {
+                    if (!value || getFieldValue(("password")) === value) {
                         return Promise.resolve()
                     }
                     return Promise.reject(new Error('Пароли должны совпадать'))
