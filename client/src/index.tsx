@@ -8,6 +8,8 @@ import {Paths} from "./paths";
 import {Register} from "./pages/register/register";
 import {Login} from "./pages/login/login";
 
+import {ConfigProvider, theme} from "antd";
+
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
@@ -34,9 +36,11 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router}/>
-
-
+            <ConfigProvider theme={{
+                algorithm: theme.darkAlgorithm
+            }}>
+                <RouterProvider router={router}/>
+            </ConfigProvider>
         </Provider>
     </React.StrictMode>
 );

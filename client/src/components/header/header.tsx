@@ -15,7 +15,20 @@ export const Header = () => {
                         <Typography.Title level={4}>Сотрудники</Typography.Title>
                     </CustomButton>
                 </Link>
+            </Space>
 
+            <Space>
+                <Link to={Paths.register}>
+                    <CustomButton  ghost={true}>
+                        <Typography.Title level={4}>Зарегистрироваться</Typography.Title>
+                    </CustomButton>
+                </Link>
+
+                <Link to={Paths.login}>
+                    <CustomButton  ghost={true}>
+                        <Typography.Title level={4}>Войти</Typography.Title>
+                    </CustomButton>
+                </Link>
             </Space>
         </Layout.Header>
     );
