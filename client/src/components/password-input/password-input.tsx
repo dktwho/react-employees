@@ -8,7 +8,28 @@ type Props = {
 }
 export const PasswordInput = ({name, placeholder, dependencies}: Props) => {
     return (
-        <Form.Item name={name} dependencies={dependencies} hasFeedback rules={[]}>
+        <Form.Item name={name} dependencies={dependencies} hasFeedback rules={[{
+            required: true,
+            message: 'Обязательное поле'
+        }, ({getFieldsValue}) => ({
+            validator(_, value) {
+                if (!value) {
+                    return Promise.resolve()
+                }
+
+                if (name === 'confirmPassword') {
+                    if (!value || getFieldsValue(("password")) === value) {
+                        return Promise.resolve()
+                    }
+                    return Promise.reject(new Error('Пароли должны совпадать'))
+                } else {
+                    if (value.length < 6) {
+                        return Promise.reject(new Error('Пароль должен быть более 6 символов '))
+                    }
+                    return Promise.resolve()
+                }
+            }
+        })]}>
             <Input.Password placeholder={placeholder} size={'large'}/>
         </Form.Item>
     );
