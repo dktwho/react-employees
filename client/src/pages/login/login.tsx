@@ -6,7 +6,6 @@ import {PasswordInput} from "../../components/password-input/password-input";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {Link} from "react-router-dom";
 import {Paths} from "../../paths";
-
 export const Login = () => {
     return (
         <Layout>
