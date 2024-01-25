@@ -1,9 +1,16 @@
 import React from 'react';
 import {Layout} from "../../components/layout/layout";
+import {Card, Form, Row} from "antd";
 export const Login = () => {
     return (
         <Layout>
-            Login page
+            <Row align={'middle'} justify={'center'}>
+                <Card title={'Войдите'} style={{width: '30rem'}}>
+                    <Form onFinish={() => null}>
+
+                    </Form>
+                </Card>
+            </Row>
         </Layout>
     );
 };
