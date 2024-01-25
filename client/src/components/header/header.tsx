@@ -12,7 +12,7 @@ export const Header = () => {
                 <TeamOutlined className={s.teamIcon}/>
                 <Link to={Paths.home}>
                     <CustomButton  ghost={true}>
-                        <Typography.Title level={4}>Сотрудники</Typography.Title>
+                        <Typography.Title level={3}>Сотрудники</Typography.Title>
                     </CustomButton>
                 </Link>
             </Space>
@@ -20,13 +20,13 @@ export const Header = () => {
             <Space>
                 <Link to={Paths.register}>
                     <CustomButton  ghost={true}>
-                        <Typography.Title level={4}>Зарегистрироваться</Typography.Title>
+                        <Typography.Title level={5} >Зарегистрироваться</Typography.Title>
                     </CustomButton>
                 </Link>
 
                 <Link to={Paths.login}>
                     <CustomButton  ghost={true}>
-                        <Typography.Title level={4}>Войти</Typography.Title>
+                        <Typography.Title level={5} >Войти</Typography.Title>
                     </CustomButton>
                 </Link>
             </Space>
