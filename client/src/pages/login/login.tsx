@@ -14,7 +14,6 @@ export const Login = () => {
     const navigate = useNavigate()
     const [loginUser, loginUserResult] = useLoginMutation()
     const [error, setError] = useState('')
-
     const onLogin = async (data: UserData) => {
         try {
             await loginUser(data).unwrap();
