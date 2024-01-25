@@ -3,7 +3,6 @@ import {RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8000/api',
-
 });
 
 const baseQueryWithRetry = retry(baseQuery, {maxRetries: 1});
