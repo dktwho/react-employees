@@ -18,6 +18,7 @@ export const Login = () => {
         try {
             await loginUser(data).unwrap();
         } catch (err) {
+            console.log(err, 'err')
             const maybeError = isErrorWithMessage(err)
             if (maybeError) {
                 setError(err.data.message)
