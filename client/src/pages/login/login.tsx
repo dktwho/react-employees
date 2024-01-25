@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {Paths} from "../../paths";
 import {useLoginMutation, UserData} from "../../app/services/auth";
 import {isErrorWithMessage} from "../../utils/isErrorWithMessage";
+import {ErrorMessage} from "../../components/error-message/error-message";
 
 export const Login = () => {
     const [loginUser, loginUserResult] = useLoginMutation()
@@ -41,6 +42,7 @@ export const Login = () => {
                                 Зарегистрируйтесь
                             </Link>
                         </Typography.Text>
+                        <ErrorMessage message={error}/>
                     </Space>
                 </Card>
             </Row>
