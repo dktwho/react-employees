@@ -1,8 +1,9 @@
 import React from 'react';
+import {Layout} from "../../components/layout/layout";
 export const Login = () => {
     return (
-        <div>
+        <Layout>
             Login page
-        </div>
+        </Layout>
     );
 };
