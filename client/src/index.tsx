@@ -13,6 +13,7 @@ import {ConfigProvider, theme} from "antd";
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
+import Auth from "./features/auth/auth";
 
 
 const router = createBrowserRouter([
@@ -39,7 +40,9 @@ root.render(
             <ConfigProvider theme={{
                 algorithm: theme.darkAlgorithm
             }}>
-                <RouterProvider router={router}/>
+                <Auth>
+                    <RouterProvider router={router}/>
+                </Auth>
             </ConfigProvider>
         </Provider>
     </React.StrictMode>
