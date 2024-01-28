@@ -5,13 +5,19 @@ import {CustomButton} from "../custom-button/custom-button";
 import {Link, useNavigate} from "react-router-dom";
 import {Paths} from "../../paths";
 import {useSelector} from "react-redux";
-import {selectUser} from "../../features/auth/authSlice";
+import {logout, selectUser} from "../../features/auth/authSlice";
 import {useAppDispatch} from "../../app/hooks";
 
 export const Header = () => {
     const user = useSelector(selectUser)
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
+
+    const onLogoutClick = () => {
+        dispatch(logout())
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
     return (
         <Layout.Header className={s.header}>
@@ -24,8 +30,8 @@ export const Header = () => {
                 </Link>
             </Space>
             {user ? (
-                    <CustomButton type={'ghost'} icon={<LoginOutlined/>} onClick={() => null}>Выйти</CustomButton>
-                ) :
+                <CustomButton type={'ghost'} icon={<LoginOutlined/>} onClick={onLogoutClick}>Выйти</CustomButton>
+            ) : (
                 <Space>
                     <Link to={Paths.register}>
                         <CustomButton icon={<UserOutlined/>}>Зарегистрироваться</CustomButton>
@@ -35,9 +41,8 @@ export const Header = () => {
                         <CustomButton icon={<LoginOutlined/>}>Войти</CustomButton>
                     </Link>
                 </Space>
+            )
             }
-
-
         </Layout.Header>
     );
 };
