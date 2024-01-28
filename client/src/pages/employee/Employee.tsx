@@ -90,7 +90,6 @@ export const Employee = () => {
             <Modal title={'Подтвердите удаление'} open={isModalOpen} onOk={handleDeleteUser} onCancel={hideModal}
                    okText={'Подтвердить'} cancelText={'Отменить'}>Вы действительно хотите удалить сотрудника из таблицы
                 ?
-
             </Modal>
         </Layout>
     );
