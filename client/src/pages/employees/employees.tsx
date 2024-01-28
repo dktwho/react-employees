@@ -7,6 +7,9 @@ import type {ColumnsType} from "antd/es/table";
 import {Employee} from "@prisma/client";
 import {useNavigate} from "react-router-dom";
 import {Paths} from '../../paths'
+import {useSelector} from "react-redux";
+import {selectUser} from "../../features/auth/authSlice";
+import {useEffect} from "react";
 
 
 const columns: ColumnsType<Employee> = [
@@ -18,7 +21,15 @@ const columns: ColumnsType<Employee> = [
 
 export const Employees = () => {
     const navigate = useNavigate()
+    const user = useSelector(selectUser)
     const {data, isLoading} = useGetAllEmployeesQuery()
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login')
+        }
+    }, [navigate, user])
+
     return (
         <Layout>
             <CustomButton type={'primary'} onClick={() => null} icon={<PlusCircleOutlined/>}>Добавить</CustomButton>
