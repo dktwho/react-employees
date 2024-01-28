@@ -42,17 +42,15 @@ export const Employee = () => {
         hideModal()
         try {
             await removeEmployee(data.id).unwrap()
-        } catch (error) {
             navigate(`${Paths.status}/deleted`)
+        } catch (error) {
             const mayBeError = isErrorWithMessage(error)
             if (mayBeError) {
                 setError(error.data.message)
             } else {
                 setError('Неизвестная ошибка')
             }
-
         }
-
     }
 
     return (
