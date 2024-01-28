@@ -8,6 +8,9 @@ import {Descriptions, Divider, Modal, Space} from "antd";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {ErrorMessage} from "../../components/error-message/error-message";
+import {useAppDispatch} from "../../app/hooks";
+import {Paths} from "../../paths";
+import {isErrorWithMessage} from "../../utils/isErrorWithMessage";
 
 export const Employee = () => {
     const navigate = useNavigate()
@@ -17,6 +20,7 @@ export const Employee = () => {
     const {data, isLoading} = useGetEmployeeQuery(params.id || "")
     const [removeEmployee] = useRemoveEmployeeMutation()
     const user = useSelector(selectUser)
+    const dispatch = useAppDispatch()
 
     if (isLoading) {
         return <span>Загрузка...</span>
@@ -24,6 +28,31 @@ export const Employee = () => {
 
     if (!data) {
         return <Navigate to={'/'}/>
+    }
+
+    const hideModal = () => {
+        setIsModalOpen(false)
+    }
+
+    const showModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const handleDeleteUser = async () => {
+        hideModal()
+        try {
+            await removeEmployee(data.id).unwrap()
+        } catch (error) {
+            navigate(`${Paths.status}/deleted`)
+            const mayBeError = isErrorWithMessage(error)
+            if (mayBeError) {
+                setError(error.data.message)
+            } else {
+                setError('Неизвестная ошибка')
+            }
+
+        }
+
     }
 
     return (
@@ -53,15 +82,16 @@ export const Employee = () => {
                                 Редактировать
                             </CustomButton>
                         </Link>
-                        <CustomButton shape={'round'} danger onClick={() => null}
+                        <CustomButton shape={'round'} danger onClick={showModal}
                                       icon={<DeleteOutlined/>}>Удалить</CustomButton>
                     </Space>
                 </>
             )}
 
             <ErrorMessage message={error}/>
-            <Modal title={'Подтвердите удаление'} open={isModalOpen} onOk={() => null} onCancel={() => null}
-                   okText={'Подтвердить'} cancelText={'Отменить'}>Вы действительно хотите удалить сотрудника из таблицы ?
+            <Modal title={'Подтвердите удаление'} open={isModalOpen} onOk={handleDeleteUser} onCancel={hideModal}
+                   okText={'Подтвердить'} cancelText={'Отменить'}>Вы действительно хотите удалить сотрудника из таблицы
+                ?
 
             </Modal>
         </Layout>
