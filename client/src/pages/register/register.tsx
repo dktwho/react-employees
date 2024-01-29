@@ -1,18 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Layout} from "../../components/layout/layout";
 import {Card, Form, Row, Space, Typography} from "antd";
 import {CustomInput} from "../../components/custom-input/custom-input";
 import {PasswordInput} from "../../components/password-input/password-input";
 import {CustomButton} from "../../components/custom-button/custom-button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Paths} from "../../paths";
+import {useSelector} from "react-redux";
+import {selectUser} from "../../features/auth/authSlice";
+import {useRegisterMutation} from "../../app/services/auth";
+import {User} from "@prisma/client";
+import {isErrorWithMessage} from "../../utils/isErrorWithMessage";
+import {ErrorMessage} from "../../components/error-message/error-message";
+
+type RegisterData = Omit<User, 'id'> & { confirmPassword: string };
 
 export const Register = () => {
+    const navigate = useNavigate()
+    const user = useSelector(selectUser)
+    const [error, setError] = useState('')
+    const [registerUser] = useRegisterMutation();
+
+    const register = async (data: RegisterData) => {
+        try {
+            await registerUser(data).unwrap();
+            navigate('/')
+        } catch (err) {
+            const maybeError = isErrorWithMessage(err)
+            if (maybeError) {
+                setError(err.data.message)
+            } else {
+                setError('Неизвестная ошибка')
+            }
+        }
+    }
+
     return (
         <Layout>
             <Row align={'middle'} justify={'center'}>
                 <Card title={'Зарегистрируйтесь'} style={{width: '30rem'}}>
-                    <Form onFinish={() => null}>
+                    <Form onFinish={register}>
                         <CustomInput name={'name'} placeholder={'Имя'}/>
                         <CustomInput name={'email'} placeholder={'Email'} type={'email'}/>
                         <PasswordInput name={'password'} placeholder={'Пароль'}/>
@@ -26,6 +53,7 @@ export const Register = () => {
                                 Войдите
                             </Link>
                         </Typography.Text>
+                        <ErrorMessage message={error}/>
                     </Space>
                 </Card>
             </Row>
